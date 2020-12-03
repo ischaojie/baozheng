@@ -30,14 +30,15 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# 所有的 app
 INSTALLED_APPS = [
     'django.contrib.admin',  # admin
     'django.contrib.auth',  # 认证
     'django.contrib.contenttypes',  # 内容类型
-    'django.contrib.sessions',
-    'django.contrib.messages',
+    'django.contrib.sessions',  # session
+    'django.contrib.messages',  # 消息
     'django.contrib.staticfiles',  # 管理静态文件
-    'polls.apps.PollsConfig',
+    'polls.apps.PollsConfig',  # polls app
 ]
 
 MIDDLEWARE = [
@@ -51,12 +52,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'baozheng.urls'
+
 # 模板系统
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True, # 设置寻找“templates”目录
+        'DIRS': [BASE_DIR / 'templates'],
+        # Django 会自动在每个应用包内递归查找 templates/ 子目录
+        'APP_DIRS': True,  # 设置是否寻找app中 "templates" 目录
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -79,6 +82,21 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+# caches
+CACHES = {
+    "default": {
+        # 使用 redis cache
+        "BACKEND": "django_redis.cache.RedisCache",
+        # address
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        # 其他选项
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+
 }
 
 
