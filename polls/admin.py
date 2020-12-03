@@ -1,4 +1,3 @@
-from os import name
 from django.contrib import admin
 from django.contrib.admin.sites import AdminSite
 from .models import Choice, Question
@@ -7,13 +6,13 @@ from .models import Choice, Question
 
 # * 自定义polls应用后台站点
 # * 然后在项目urls.py 指定路由: 'path('admin/', admin_site.urls)'
-class PollsAdminSite(AdminSite):
-    site_header = 'Polls Administration'
-    site_title = 'Polls admin'
-    index_title = '站点地图'
+# class PollsAdminSite(AdminSite):
+#     site_header = 'Polls Administration'
+#     site_title = 'Polls admin'
+#     index_title = '站点地图'
 
 
-admin_site = PollsAdminSite(name='PollsAdmin')
+# admin_site = PollsAdminSite(name='PollsAdmin')
 
 
 # * InlineModel(ChoiceInline) 会嵌入到 QuestionAdmin 中
@@ -44,4 +43,4 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
 # * 注册QuestionAdmin到自定义的admin_site
-admin_site.register(Question, QuestionAdmin)
+admin.site.register(Question, QuestionAdmin)

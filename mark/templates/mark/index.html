@@ -1,0 +1,14 @@
+<!-- {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}"> -->
+
+{% if sources %}
+
+<h3>{{ sources.head }}</h3>
+<p>{{ sources.detail }}</p>
+<p>{{ sources.category }}</p>
+<!-- <p>is_marked ? {{ source.is_mark }}</p> -->
+
+{% else %}
+<p>No mark are available.</p>
+{% endif %}
+

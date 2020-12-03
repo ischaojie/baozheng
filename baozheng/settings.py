@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',  # 消息
     'django.contrib.staticfiles',  # 管理静态文件
     'polls.apps.PollsConfig',  # polls app
+    'mark.apps.MarkConfig'  # mark app
 ]
 
 MIDDLEWARE = [
