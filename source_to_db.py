@@ -11,9 +11,7 @@ MYSQL_DATABASE = 'sources'
 
 db_addr = 'mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST_IP}:{MYSQL_PORT}/{MYSQL_DATABASE}'
 
-engine = create_engine('mysql+mysqlconnector://root:zhezhezhu@127.0.0.1:3306/sources',
-                       echo=False,
-                       )
+engine = create_engine('mysql+mysqlconnector://root:zhezhezhu@127.0.0.1:3306/sources', echo=False,)
 
 
 chunksize = 500

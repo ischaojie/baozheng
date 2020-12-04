@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mark.apps.MarkConfig'  # mark app
 ]
 
+# 中间件
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

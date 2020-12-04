@@ -5,7 +5,7 @@ from django.contrib import admin
 
 
 class SourceAdmin(admin.ModelAdmin):
-    list_display = ('head', 'detail', 'category', 'is_mark')
+    list_display = ('head', 'detail', 'category', 'marked')
     search_fields = ['head']
 
 

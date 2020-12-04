@@ -13,7 +13,7 @@ class Source(models.Model):
     # 分类（目前只有两类：正、反）
     category = models.BooleanField(blank=True)
     # 是否标记
-    is_mark = models.BooleanField(default=False)
+    marked = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.head

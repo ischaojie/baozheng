@@ -1,14 +1,35 @@
-<!-- {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}"> -->
+{% extends "mark/base.html" %}
 
-{% if sources %}
 
-<h3>{{ sources.head }}</h3>
-<p>{{ sources.detail }}</p>
-<p>{{ sources.category }}</p>
-<!-- <p>is_marked ? {{ source.is_mark }}</p> -->
+{% block content %}
 
-{% else %}
-<p>No mark are available.</p>
-{% endif %}
+<div class="flex flex-col p-8 max-w-md mx-auto bg-white text-center">
+    <div class="py-12 text-lg font-medium text-black">这是垃圾短信吗？</div>
+    <div class="p-8 rounded-xl shadow-md">
+    {% if  source %}
+    
+        <div class="">{{source.head}}</div>
+        <p class="text-gray-500">{{ source.detail }}</p>
+    {% else %}
 
+    {% endif %}
+          <div class="flex pt-8">
+            <button class="flex-1 mx-4 px-6 py-1
+                        text-sm text-purple-600 font-semibold 
+                        rounded-full border border-purple-200
+                        hover:text-white hover:bg-purple-600 hover:border-transparent
+                        focus:outline-none
+                        "
+                        >Yes</button>
+            <button class="flex-1 mx-4 px-6 py-1
+                        text-sm text-purple-600 font-semibold 
+                        rounded-full border border-purple-200
+                        hover:text-white hover:bg-purple-600 hover:border-transparent
+                        focus:outline-none
+                        "
+                        >No</button>
+          </div>
+    </div>
+</div>
+
+{% endblock content %}
