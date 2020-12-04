@@ -83,6 +83,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    # mysql 测试数据库
+    'test': {
+        'NAME': 'sources',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'root',
+        'PASSWORD': 'zhezhezhu'
     }
 }
 

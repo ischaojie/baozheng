@@ -9,7 +9,7 @@
     {% if  source %}
     
         <div class="">{{source.head}}</div>
-        <p class="text-gray-500">{{ source.detail }}</p>
+        <p class="text-gray-400">{{ source.detail | default:'no description' }}</p>
     {% else %}
 
     {% endif %}

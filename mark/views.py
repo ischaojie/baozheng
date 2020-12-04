@@ -11,10 +11,16 @@ def index(request):
     #     'SELECT * FROM mark_source WHERE marked=false ORDER BY RANDOM() limit 1'
     # )
     # TODO 数据量大会有性能问题
-    source_list = [s.id for s in Source.objects.all().filter(marked=False)]
-    choice_source = random.choice(source_list)
-    source = Source.objects.get(pk=choice_source)
-    context = {'source': source}
+    # source_list = [s.id for s in Source.objects.all().filter(marked=False)]
+    # choice_source = random.choice(source_list)
+    # source = Source.objects.get(pk=choice_source)
+    
+    # * 使用垃圾短信测试数据库
+    # * 待优化
+    source = Source.objects.using('test').raw(
+        'SELECT * FROM mark_source WHERE marked=false ORDER BY RAND() limit 1'
+    )
+    context = {'source': source[0]}
     return render(request, 'mark/index.html', context)
 
 
