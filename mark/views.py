@@ -2,6 +2,8 @@ from django.http.response import Http404
 from django.shortcuts import render
 from .models import Source
 import random
+
+
 # Create your views here.
 
 
@@ -14,10 +16,10 @@ def index(request):
     # source_list = [s.id for s in Source.objects.all().filter(marked=False)]
     # choice_source = random.choice(source_list)
     # source = Source.objects.get(pk=choice_source)
-    
+
     # * 使用垃圾短信测试数据库
     # * 待优化
-    source = Source.objects.using('test').raw(
+    source = Source.objects.raw(
         'SELECT * FROM mark_source WHERE marked=false ORDER BY RAND() limit 1'
     )
     context = {'source': source[0]}
