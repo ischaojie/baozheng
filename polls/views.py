@@ -11,7 +11,7 @@ def index(request):
     # filter 过滤 pub_date 为现在及之前的
     latest_question_list = Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
-    return render(request, 'polls/index.html', context)
+    return render(request, 'polls/judge.html', context)
 
 
 def detail(request, question_id):
