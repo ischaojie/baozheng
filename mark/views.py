@@ -1,5 +1,7 @@
-from django.http.response import Http404
+from django.http.response import Http404, HttpResponseRedirect
 from django.shortcuts import render
+
+from .forms import SourceJudgeForm
 from .models import Source, Origin
 import random
 
@@ -13,7 +15,7 @@ def index(request):
     for origin in origins:
         all_source = Source.objects.filter(origin_id=origin.id).count()
         completed = Source.objects.filter(origin_id=origin.id, marked=True).count()
-        origin.percentage = f'{completed / all_source:.2}%'
+        origin.percentage = f'{completed / all_source:.2}'
 
     context = {'origins': origins}
     return render(request, 'mark/index.html', context)
@@ -35,14 +37,23 @@ def judge(request, origin_id):
     source = Source.objects.raw(
         'SELECT * FROM mark_source WHERE marked=false AND origin_id=%s ORDER BY RAND() limit 1',
         [origin_id]
-    )
-    context = {'source': source[0]}
-    return render(request, 'mark/judge.html', context)
+    )[0]
+
+    if request.method == 'POST':
+        category = request.POST.get('category', '')
+        # update this source
+        source.objects.update(category=category)
+        # redirect
+        return HttpResponseRedirect('mark/judge/')
+
+    elif request.method == 'GET':
+        context = {'source': source}
+        return render(request, 'mark/judge.html', context)
 
 
-def detail(request, source_id):
+def detail(request, origin_id, source_id):
     try:
-        source = Source.objects.get(pk=source_id)
+        source = Source.objects.get(pk=source_id, origin=origin_id)
     except Source.DoesNotExist:
         raise Http404("Source does not exist")
     return render(request, 'mark/detail.html', {'source': source})

@@ -1,21 +1,24 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {% load static %}
-  <link href="{% static 'mark/tailwind.min.css' %}" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{% static 'mark/style.css' %}">
-  <title>{% block title %}包拯：数据标注系统{% endblock %}</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% load static %}
+    <link href="{% static 'mark/tailwind.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'mark/style.css' %}">
+    <title>{% block title %}包拯：数据标注系统{% endblock %}</title>
 
 </head>
 <body>
-    <div id="sidebar">
-        {% block sidebar %}{% endblock %}
-    </div>
+<div id="sidebar">
+    {% block sidebar %}{% endblock %}
+</div>
 
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+<script src="{% static 'mark/axios.min.js' %}"></script>
+<script src="{% static 'mark/baozheng.js' %}"></script>
+
 </body>
 </html>

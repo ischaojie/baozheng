@@ -14,8 +14,8 @@
 
             {% endif %}
             <div class="flex pt-8">
-                <button class="flex-1 mx-4 px-6 py-1
-                        text-sm text-purple-600 font-semibold 
+                <button onclick="source_submit(1, source.origin.id)" class="flex-1 mx-4 px-6 py-1
+                        text-sm text-purple-600 font-semibold
                         rounded-full border border-purple-200
                         hover:text-white hover:bg-purple-600 hover:border-transparent
                         focus:outline-none
@@ -23,7 +23,7 @@
                 >Yes
                 </button>
                 <button class="flex-1 mx-4 px-6 py-1
-                        text-sm text-purple-600 font-semibold 
+                        text-sm text-purple-600 font-semibold
                         rounded-full border border-purple-200
                         hover:text-white hover:bg-purple-600 hover:border-transparent
                         focus:outline-none
@@ -33,5 +33,20 @@
             </div>
         </div>
     </div>
+    <script>
+        import axios from 'axios';
 
+        function source_submit(category, origin_id) {
+            let url = 'mark/' + origin_id
+            axios.post(url, {
+                category: category
+            })
+                .then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                });
+        }
+    </script>
 {% endblock content %}
