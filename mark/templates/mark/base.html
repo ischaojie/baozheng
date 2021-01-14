@@ -15,10 +15,13 @@
 </div>
 
 <div id="content">
+    <div id="app">
+        {{ message }}
+    </div>
     {% block content %}{% endblock %}
 </div>
 <script src="{% static 'mark/axios.min.js' %}"></script>
 <script src="{% static 'mark/baozheng.js' %}"></script>
-
+</script>
 </body>
 </html>
