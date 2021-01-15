@@ -14,7 +14,7 @@ class Origin(models.Model):
         return f'{self.name}'
 
 
-# Source 源数据 model
+# SourceJudge 源数据 model
 class Source(models.Model):
     CATEGORY_CHOICES = [
         (0, 'fake'),
