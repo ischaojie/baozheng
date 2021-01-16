@@ -1,8 +1,10 @@
-from django.http.response import Http404, HttpResponseRedirect
+from django.forms import model_to_dict
+from django.http.response import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
 from .forms import SourceJudgeForm
 from .models import Source, Origin
+from .utils import IJsonResponse
 import random
 
 
@@ -18,7 +20,7 @@ def index(request):
         origin.percentage = f'{completed / all_source:.2}'
 
     context = {'origins': origins}
-    return render(request, 'mark/index.html', context)
+    return IJsonResponse('success', context)
 
 
 # 语料库评判
@@ -48,12 +50,12 @@ def judge(request, origin_id):
 
     elif request.method == 'GET':
         context = {'source': source}
-        return render(request, 'mark/judge.html', context)
+        return IJsonResponse('success', context)
 
 
 def detail(request, origin_id, source_id):
     try:
         source = Source.objects.get(pk=source_id, origin=origin_id)
     except Source.DoesNotExist:
-        raise Http404("SourceJudge does not exist")
-    return render(request, 'mark/detail.html', {'source': source})
+        return IJsonResponse('error', {'title': 'this source does not exist'})
+    return IJsonResponse('success', {'source': source})

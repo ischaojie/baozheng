@@ -1,5 +1,45 @@
 import React from 'react';
 
+const originsExample = [
+    {
+        "id": 1,
+        "name": "spam message",
+        "description": "this is spam message",
+        "percentage": "33.33%",
+    },
+    {
+        "id": 2,
+        "name": "house rental",
+        "description": "this is house rental",
+        "percentage": "90.03%",
+
+    }
+]
+class SourceList extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className="flex justify-around flex-row ">
+                <div className="">
+                    <div className="px-6">
+                        数据集
+                    </div>
+                    <OriginList origins={originsExample} />
+                </div>
+                <div>
+                    <div>新建数据集</div>
+                    <button>开始</button>
+                </div>
+            </div>
+
+
+        );
+    }
+}
+
 function SingleOrigin(props) {
     const origin = props.origin;
     return (
@@ -20,44 +60,13 @@ function SingleOrigin(props) {
 function OriginList(props) {
     const origins = props.origins;
     const listItems = origins.map((origin) =>
-        <SingleOrigin origin={origin}/>
+        <SingleOrigin origin={origin} />
     );
     return (
         <div>
             {listItems}
         </div>
     );
-}
-
-const originsExample = [
-    {
-        "id": 1,
-        "name": "spam message",
-        "description": "this is spam message",
-        "percentage": "33.33%",
-    },
-    {
-        "id": 2,
-        "name": "house rental",
-        "description": "this is house rental",
-        "percentage": "90.03%",
-
-    }
-]
-
-class SourceList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <div className="flex justify-around">
-                <OriginList origins={originsExample}/>
-            </div>
-
-        );
-    }
 }
 
 export default SourceList
