@@ -29,9 +29,16 @@ class SourceList extends React.Component {
                     </div>
                     <OriginList origins={originsExample} />
                 </div>
-                <div>
-                    <div>新建数据集</div>
-                    <button>开始</button>
+                <div className="">
+                    <div className="text-2xl">新建数据集 ? </div>
+                    <button onClick="" className="flex-1 mx-4 px-6 py-1
+                        text-sm text-purple-600 font-semibold
+                        rounded-full border border-purple-200
+                        hover:text-white hover:bg-purple-600 hover:border-transparent
+                        focus:outline-none
+                        "
+                    >开始
+            </button>
                 </div>
             </div>
 
