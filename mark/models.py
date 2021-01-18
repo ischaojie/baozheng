@@ -1,14 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
 
-# Origin 数据源
-class Origin(models.Model):
+
+# DataSet the data source
+class DataSet(models.Model):
     # 目标
     name = models.CharField(max_length=50)
     # 描述
     description = models.CharField(max_length=100, blank=True, null=True)
+    # dataset source
+    origin = models.CharField(max_length=50)
+    # create time
+    create_at = models.DateTimeField()
+    # belong to which user, use django default user system
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return f'{self.name}'
