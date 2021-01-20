@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 const sourceExample = {
     name: "test source",
@@ -10,17 +9,13 @@ const sourceExample = {
     }
 }
 
-class SourceJudge extends React.Component {
-    constructor(props) {
-        super(props);
-        this.sourceExample = sourceExample
-    }
+class DatasetMark extends React.Component {
 
     render() {
         return (
             <div className="flex flex-col p-8 max-w-md mx-auto bg-white text-center">
-                <div className="py-12 text-lg font-medium text-black">is this {this.sourceExample.origin.name} ？</div>
-                <SingleSource source={this.sourceExample}/>
+                <div className="py-12 text-lg font-medium text-black">is this {sourceExample.origin.name} ？</div>
+                <SingleSource source={sourceExample}/>
                 <div className="flex pt-8">
                     <Button name={'Yes'}/>
                     <Button name={'No'}/>
@@ -32,10 +27,6 @@ class SourceJudge extends React.Component {
 }
 
 class SingleSource extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     render() {
         return (
@@ -49,9 +40,6 @@ class SingleSource extends React.Component {
 }
 
 class Button extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
@@ -67,4 +55,4 @@ class Button extends React.Component {
     }
 }
 
-export default SourceJudge
+export default DatasetMark

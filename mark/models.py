@@ -22,7 +22,7 @@ class DataSet(models.Model):
         return f'{self.name}'
 
 
-# SourceJudge 源数据 model
+# DatasetMark 源数据 model
 class Source(models.Model):
     CATEGORY_CHOICES = [
         (0, 'fake'),

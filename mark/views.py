@@ -26,13 +26,13 @@ def index(request):
 # 语料库评判
 def judge(request, origin_id):
     # * 从source 随机取一个
-    # source = SourceJudge.objects.raw(
+    # source = DatasetMark.objects.raw(
     #     'SELECT * FROM mark_source WHERE marked=false ORDER BY RANDOM() limit 1'
     # )
     # TODO 数据量大会有性能问题
-    # source_list = [s.id for s in SourceJudge.objects.all().filter(marked=False)]
+    # source_list = [s.id for s in DatasetMark.objects.all().filter(marked=False)]
     # choice_source = random.choice(source_list)
-    # source = SourceJudge.objects.get(pk=choice_source)
+    # source = DatasetMark.objects.get(pk=choice_source)
 
     # * 使用测试数据库
     # * 待优化
