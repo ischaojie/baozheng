@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',  # session
     'django.contrib.messages',  # 消息
     'django.contrib.staticfiles',  # 管理静态文件
+    'rest_framework',  # restful api
     'polls.apps.PollsConfig',  # polls app
     'mark.apps.MarkConfig'  # mark app
 ]
@@ -86,6 +87,14 @@ DATABASES = {
             'password': os.getenv('MYSQL_PASSWORD')
         }
     },
+    'datasets': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'database': 'datasets',
+            'user': os.getenv('MYSQL_USER'),
+            'password': os.getenv('MYSQL_PASSWORD')
+        }
+    }
 }
 
 # caches
@@ -138,3 +147,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# rest framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

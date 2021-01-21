@@ -5,25 +5,23 @@ import {
     Link,
     Switch
 } from 'react-router-dom'
-import DatasetMark from "./mark/datasetMark";
-import DatasetList from "./mark/datasetList";
-import DatasetDetail from "./mark/datasetDetail";
+import DatasetMark from "./mark/datasetMark"
+import DatasetList from "./mark/datasetList"
+import DatasetDetail from "./mark/datasetDetail"
 import Login from "./mark/login";
-import Header from "./mark/header"
+import Header from "./mark/header";
 
 function App() {
     return (
-        <div>
+        <Router>
             <Header/>
-            <Router>
-                <Switch>
-                    <Route exact path="/" component={DatasetList}/>
-                    <Route path="/dataset/:id" component={DatasetDetail}/>
-                    <Route path="/mark"><DatasetMark/></Route>
-                    <Route path="/login"><Login/></Route>
-                </Switch>
-            </Router>
-        </div>
+            <Switch>
+                <Route exact path="/" component={DatasetList}/>
+                <Route exact path="/dataset/:id" component={DatasetDetail}/>
+                <Route exact path="/mark" component={DatasetMark}/>
+                <Route path="/login" component={Login}/>
+            </Switch>
+        </Router>
 
     );
 }

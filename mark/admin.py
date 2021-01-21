@@ -1,19 +1,14 @@
-from mark.models import Source, Origin
+from mark.models import DataSet
 from django.contrib import admin
 
 
 # Register your models here.
 
 
-class SourceAdmin(admin.ModelAdmin):
-    list_display = ('head', 'detail', 'category', 'marked', 'origin_name')
+class DatasetAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'create_at', 'owner', 'opened', 'count', 'mark_percent')
 
-    search_fields = ['head']
-
-
-class OriginAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
+    search_fields = ['name']
 
 
-admin.site.register(Source, SourceAdmin)
-admin.site.register(Origin, OriginAdmin)
+admin.site.register(DataSet, DatasetAdmin)
