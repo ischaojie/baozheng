@@ -156,3 +156,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+DATASETS_DIR = '/Users/zhezhezhu/.bz_datasets/'

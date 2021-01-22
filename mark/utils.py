@@ -1,5 +1,7 @@
 import json
+import os
 
+from django.conf import settings
 from django.core import serializers
 from django.db.models import QuerySet, Model
 from django.forms import model_to_dict
@@ -32,3 +34,32 @@ class IJsonResponse(JsonResponse):
             resp_data['message'] = message
 
         super().__init__(data=resp_data, json_dumps_params={'ensure_ascii': False}, **kwargs)
+
+
+import pandas as pd
+from sqlalchemy import create_engine
+
+
+def parser_dataset_file(filename, origin, sep='\t'):
+    dataset = settings.DATABASES.get('datasets')
+    MYSQL_USER = dataset.get('user', 'root')
+    MYSQL_PASSWORD = dataset.get('password')
+    MYSQL_HOST_IP = dataset.get('host', '127.0.0.1')
+    MYSQL_PORT = dataset.get('port', '3306')
+    MYSQL_DATABASE = dataset.get('database', 'datasets')
+    engine = create_engine(
+        f'mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST_IP}:{MYSQL_PORT}/{MYSQL_DATABASE}',
+        echo=False)
+
+    filepath = os.path.join(settings.DATASETS_DIR, filename)
+    # todo error process
+    for df in pd.read_csv(filepath, chunksize=500, sep=sep):
+        df.to_sql(name=origin, con=engine, if_exists='replace', index=False, chunksize=500)
+
+    return 'ok'
+
+
+def dataset_file_exist_header(filename):
+    # 判断文件是否存在 header
+    with open(filename) as f:
+        header = f.readlines()

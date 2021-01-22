@@ -20,14 +20,12 @@ from rest_framework import routers
 
 from mark import views
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-
 urlpatterns = [
+    # dataset mark
     path('', include('mark.urls')),
-    path('auth/', include(router.urls)),
     path('polls/', include('polls.urls')),
+    # admin
     path('admin/', admin.site.urls),
+    # auth
     path('auth/', include('rest_framework.urls'))
 ]

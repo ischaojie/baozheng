@@ -1,5 +1,6 @@
-from mark.models import DataSet
 from django.contrib import admin
+
+from mark.models import DataSet
 
 
 # Register your models here.
