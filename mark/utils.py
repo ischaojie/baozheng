@@ -40,7 +40,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 
-def parser_dataset_file(filename, origin, sep='\t'):
+def parser_dataset_file(filename: str, dbname: str, sep='\t'):
     dataset = settings.DATABASES.get('datasets')
     MYSQL_USER = dataset.get('user', 'root')
     MYSQL_PASSWORD = dataset.get('password')
@@ -54,7 +54,7 @@ def parser_dataset_file(filename, origin, sep='\t'):
     filepath = os.path.join(settings.DATASETS_DIR, filename)
     # todo error process
     for df in pd.read_csv(filepath, chunksize=500, sep=sep):
-        df.to_sql(name=origin, con=engine, if_exists='replace', index=False, chunksize=500)
+        df.to_sql(name=dbname, con=engine, if_exists='replace', index=False, chunksize=500)
 
     return 'ok'
 

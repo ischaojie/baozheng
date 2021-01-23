@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from mark.models import DataSet, Classify
+from mark.models import DataSet, DataSetClassify
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -18,30 +18,35 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class DataSetSerializer(serializers.ModelSerializer):
-    classify = serializers.PrimaryKeyRelatedField(many=True, queryset=Classify.objects.all())
+class DataSetClassifySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DataSetClassify
+        fields = ['name', 'classify']
 
-    # read only field
+
+class DataSetSerializer(serializers.ModelSerializer):
+    classifies_url = serializers.HyperlinkedIdentityField(read_only=True,
+                                                          view_name='datasets:dataset-classifies-list')
+
+    # read only field, this read only mean's just return value from model
     owner = serializers.ReadOnlyField(source='owner.username')
-    origin = serializers.ReadOnlyField()
-    create_at = serializers.ReadOnlyField()
+    name = serializers.CharField(required=False)
+    origin = serializers.CharField(required=False)
 
     class Meta:
         model = DataSet
         fields = ['id', 'name', 'description', 'create_at',
-                  'origin', 'opened', 'finished', 'classify_field',
+                  'origin', 'opened', 'finished', 'classify_field', 'classifies_url',
                   'count', 'mark_percent',
                   'owner']
 
+    def create(self, validated_data):
+        classifies_data = validated_data.pop('classifies')
+        dataset = DataSet.objects.create(**validated_data)
+        for classify_data in classifies_data:
+            DataSetClassify.objects.create(dataset=dataset, **classify_data)
+        return dataset
+
     # def update(self, instance, validated_data):
-    #     instance.opened = validated_data.get('opened', instance.opened)
-    #     instance.save()
-    #     return instance
-
-
-class DataSetClassifySerializer(serializers.ModelSerializer):
-    dataset = serializers.ReadOnlyField(source='dataset.name')
-
-    class Meta:
-        model = Classify
-        fields = ['id', 'name', 'classify', 'dataset']
+    #     instance.name = validated_data.get('name', instance.name)
+    #     instance.description = validated_data.get('description', instance.description)

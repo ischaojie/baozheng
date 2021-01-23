@@ -22,7 +22,7 @@ from mark import views
 
 urlpatterns = [
     # dataset mark
-    path('', include('mark.urls')),
+    path('', include('mark.urls',namespace='datasets')),
     path('polls/', include('polls.urls')),
     # admin
     path('admin/', admin.site.urls),

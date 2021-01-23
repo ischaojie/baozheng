@@ -12,7 +12,7 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import DataSet
+from .models import DataSet, DataSetClassify
 from .permissions import IsOwnerOrReadOnly
 from .serializers import UserSerializer, DataSetSerializer, DataSetClassifySerializer
 from .utils import IJsonResponse, parser_dataset_file
@@ -107,7 +107,7 @@ class DataSetList(APIView):
         else:
             datasets = DataSet.objects.all().filter(opened=True)
 
-        serializer = DataSetSerializer(datasets, many=True)
+        serializer = DataSetSerializer(datasets, many=True, context={'request':request})
         return Response(serializer.data)
 
     def post(self, request):
@@ -118,7 +118,7 @@ class DataSetList(APIView):
         if serializer.is_valid() and classify_serializer.is_valid():
             serializer.save()
             # create dataset source table
-            parser_dataset_file(filepath, f'{serializer.owner}_{serializer.origin}')
+            parser_dataset_file(filename, f'{serializer.owner}_{serializer.origin}')
             # todo 更新 count, 如果数据已经包含标注的，需要指定分类字段，
 
             if serializer.classify_field:
@@ -133,7 +133,7 @@ class DataSetList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_create(self, serializer):
-        """only dataset owner user can create"""
+        """when save dataset use current owner"""
         serializer.save(owner=self.request.user)
 
 
@@ -158,12 +158,12 @@ class DataSetDetail(APIView):
     def get(self, request, pk):
         """user can only get self all and another public dataset"""
         dataset = self.get_dataset_object(pk, request.user)
-        serializer = DataSetSerializer(dataset)
+        serializer = DataSetSerializer(dataset, context={'request': request})
         return Response(serializer.data)
 
     def put(self, request, pk):
         dataset = self.get_dataset_object(pk, request.user)
-        serializer = DataSetSerializer(dataset, data=request.data)
+        serializer = DataSetSerializer(dataset, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -252,3 +252,31 @@ class DataSetUploadView(APIView):
         # do some stuff with uploaded file
         # ...
         return Response(up_file.name, status.HTTP_201_CREATED)
+
+
+class DataSetClassifyList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def get_dataset_classifies_object(self, pk, owner):
+        """
+        only dataset owner can edit, can get all opened dataset and self
+        opened dataset for everyone
+        """
+        try:
+            dataset = DataSet.objects.get(pk=pk)
+            classifies = DataSetClassify.objects.all().filter(dataset=dataset)
+        except DataSet.DoesNotExist:
+            raise Http404
+        except DataSetClassify.DoesNotExist:
+            raise Http404
+
+        if dataset.owner != owner and not dataset.opened:
+            raise PermissionDenied(detail='no permission', code=403)
+
+        return classifies
+
+    def get(self, request, pk):
+        """get all this dataset's classify"""
+        classifies = self.get_dataset_classifies_object(pk, request.user)
+        serializer = DataSetClassifySerializer(classifies, many=True)
+        return Response(serializer.data)
