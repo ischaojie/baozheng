@@ -1,8 +1,14 @@
+import os
+
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 
 
 # Create your models here.
+def dataset_file_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return f'datasets/{instance.owner}/{filename}'
 
 
 # DataSet
@@ -12,7 +18,7 @@ class DataSet(models.Model):
     # dataset info
     description = models.CharField(max_length=100, blank=True, null=True)
     # dataset origin db table
-    origin = models.CharField(max_length=50)
+    origin = models.CharField(max_length=50, blank=True, null=True)
     # create time
     create_at = models.DateTimeField(auto_now_add=True)
     # is this dataset public? default is true
@@ -23,14 +29,18 @@ class DataSet(models.Model):
     classify_field = models.CharField(max_length=50, default='classify')
     # dataset data source count
     count = models.IntegerField(blank=True, null=True)
-    # marked percent
+    # marked percentage, default is 0
     mark_percent = models.FloatField(blank=True, null=True)
 
     # belong to which user, use django default user system
-    owner = models.ForeignKey(User, related_name='datasets', on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='datasets', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return f'<dataset: {self.name}>'
+
+    @property
+    def dataset_file_path(self):
+        return os.path.join(settings.DATASETS_DIR, self.dataset_file)
 
 
 # dataset classify

@@ -30,7 +30,6 @@ class DataSetSerializer(serializers.ModelSerializer):
 
     # read only field, this read only mean's just return value from model
     owner = serializers.ReadOnlyField(source='owner.username')
-    name = serializers.CharField(required=False)
     origin = serializers.CharField(required=False)
 
     class Meta:
@@ -40,12 +39,12 @@ class DataSetSerializer(serializers.ModelSerializer):
                   'count', 'mark_percent',
                   'owner']
 
-    def create(self, validated_data):
-        classifies_data = validated_data.pop('classifies')
-        dataset = DataSet.objects.create(**validated_data)
-        for classify_data in classifies_data:
-            DataSetClassify.objects.create(dataset=dataset, **classify_data)
-        return dataset
+    # def create(self, validated_data):
+    #     classifies_data = validated_data.pop('classifies')
+    #     dataset = DataSet.objects.create(**validated_data)
+    #     for classify_data in classifies_data:
+    #         DataSetClassify.objects.create(dataset=dataset, **classify_data)
+    #     return dataset
 
     # def update(self, instance, validated_data):
     #     instance.name = validated_data.get('name', instance.name)

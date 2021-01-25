@@ -157,4 +157,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-DATASETS_DIR = '/Users/zhezhezhu/.bz_datasets/'
+MEDIA_ROOT = '/Users/zhezhezhu/.bz_datasets/'

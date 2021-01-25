@@ -16,7 +16,7 @@ urlpatterns = [
     # dataset's classifies
     path(r'datasets/<int:pk>/classifies/', views.DataSetClassifyList.as_view(), name='dataset-classifies-list'),
     # upload dataset
-    path(r'datasets/upload/', views.DataSetUploadView.as_view()),
+    path(r'datasets/<int:pk>/upload/', views.DataSetUploadView.as_view()),
 
     # users
     path(r'users/', views.UserList.as_view()),
