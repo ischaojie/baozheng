@@ -19,6 +19,18 @@ from .utils import parser_dataset_file, OverwriteStorage
 
 # Create your views here.
 
+def sign_in():
+    pass
+
+
+def sign_out():
+    pass
+
+
+def sign_up():
+    pass
+
+
 # dataset list
 def index(request):
     pass
