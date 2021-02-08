@@ -19,7 +19,7 @@ function Header() {
                         <i className="fas fa-bars"></i>
                     </button>
                 </div>
-                <Navigator/>
+                <Navigator />
             </div>
         </nav>
     );
@@ -31,8 +31,6 @@ function Navigator() {
         { id: 2, nav: "datasets", name: "数据集" },
         { id: 3, nav: "mark", name: "标注" },
         { id: 3, nav: "about", name: "关于" },
-        { id: 4, nav: "signin", name: "登录" },
-        { id: 5, nav: "signup", name: "注册" }
     ]
 
     const links = [];
@@ -47,9 +45,32 @@ function Navigator() {
     }
 
     return (
-        <div className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
+        <div className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0 divide-x"
             id="navbar-collapse">
-            {links}
+            <div>
+                {links}
+            </div>
+            <div>
+                <NavLink
+                    to="/signin"
+                    activeClassName="bg-gray-200"
+                    className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 transition-colors duration-300"
+                >
+                    登录
+                </NavLink>
+
+                <NavLink
+                    to="/signup"
+                    activeClassName="bg-gray-200"
+                    className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 transition-colors duration-300"
+                >
+                    注册
+            </NavLink>
+            </div>
+
+
+
+
         </div>
     );
 }

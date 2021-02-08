@@ -12,18 +12,20 @@ import DatasetAll from "./mark/datasetAll"
 import Login from "./mark/login"
 import Header from "./mark/header"
 import Footer from "./mark/footer"
+import NotFound from "./mark/404"
 function App() {
     return (
         <Router>
-            <Header/>
+            <Header />
             <Switch>
-                <Route path="/home" component={DatasetList}/>
-                <Route path="/datasets" component={DatasetAll}/>
-                <Route path="/dataset/:id" component={DatasetDetail}/>
-                <Route path="/mark" component={DatasetMark}/>
-                <Route path="/signin" component={Login}/>
+                <Route path="/home" component={DatasetList} />
+                <Route path="/datasets" component={DatasetAll} />
+                <Route path="/dataset/:id" component={DatasetDetail} />
+                <Route path="/mark" component={DatasetMark} />
+                <Route path="/signin" component={Login} />
+                <Route path="*" component={NotFound} />
             </Switch>
-            <Footer/>
+            <Footer />
         </Router>
 
     );
