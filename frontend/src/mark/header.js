@@ -1,5 +1,5 @@
-import React from "react"
-import {Link, BrowserRouter as Router} from "react-router-dom"
+import React, { useState } from "react"
+import { Link, NavLink, BrowserRouter as Router } from "react-router-dom"
 import logo from "../logo.svg"
 
 function Header() {
@@ -7,10 +7,10 @@ function Header() {
         <nav className="bg-white py-2 md:py-4">
             <div className="container px-4 mx-auto md:flex md:items-center">
                 <div className="flex justify-between items-center">
-                    <Link to="/" className="flex flex-row font-bold text-xl text-indigo-600">
+                    <Link to="/home" className="flex flex-row font-bold text-xl text-indigo-600">
                         <span className="sr-only">BAOZHENG</span>
                         <img className="h-8 w-auto sm:h-10"
-                             src={logo} alt=""/>
+                            src={logo} alt="" />
                         <div className="pt-1 px-2">BAOZHENG</div>
                     </Link>
                     <button
@@ -19,32 +19,38 @@ function Header() {
                         <i className="fas fa-bars"></i>
                     </button>
                 </div>
-
-                <div className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
-                     id="navbar-collapse">
-
-                    <Link to="/"
-                          className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300">
-                        Home</Link>
-                    <Link to="/dataset"
-                          className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300">
-                        数据集</Link>
-                    <Link to="/mark"
-                          className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300">
-                        标注</Link>
-                    <Link to="/about"
-                          className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300">
-                        关于</Link>
-                    <Link to="/login"
-                          className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-transparent rounded hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-300">
-                        Login</Link>
-                    <Link to="#"
-                          className="p-2 lg:px-4 md:mx-2 text-indigo-600 text-center border border-solid border-indigo-600 rounded hover:bg-indigo-600 hover:text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1">
-                        Signup</Link>
-
-                </div>
+                <Navigator/>
             </div>
         </nav>
+    );
+}
+
+function Navigator() {
+    const headerNav = [
+        { id: 1, nav: "home", name: "Home", },
+        { id: 2, nav: "datasets", name: "数据集" },
+        { id: 3, nav: "mark", name: "标注" },
+        { id: 3, nav: "about", name: "关于" },
+        { id: 4, nav: "signin", name: "登录" },
+        { id: 5, nav: "signup", name: "注册" }
+    ]
+
+    const links = [];
+
+    for (let i = 0; i < headerNav.length; i++) {
+        const temp = <NavLink to={`/${headerNav[i].nav}`} activeClassName="bg-gray-200"
+            className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 transition-colors duration-300"
+        >
+            {headerNav[i].name}
+        </NavLink>
+        links.push(temp)
+    }
+
+    return (
+        <div className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
+            id="navbar-collapse">
+            {links}
+        </div>
     );
 }
 

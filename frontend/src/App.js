@@ -17,11 +17,11 @@ function App() {
         <Router>
             <Header/>
             <Switch>
-                <Route exact path="/" component={DatasetList}/>
-                <Route exact path="/dataset" component={DatasetAll}/>
-                <Route exact path="/dataset/:id" component={DatasetDetail}/>
-                <Route exact path="/mark" component={DatasetMark}/>
-                <Route path="/login" component={Login}/>
+                <Route path="/home" component={DatasetList}/>
+                <Route path="/datasets" component={DatasetAll}/>
+                <Route path="/dataset/:id" component={DatasetDetail}/>
+                <Route path="/mark" component={DatasetMark}/>
+                <Route path="/signin" component={Login}/>
             </Switch>
             <Footer/>
         </Router>

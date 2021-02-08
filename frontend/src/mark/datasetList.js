@@ -65,7 +65,7 @@ function OriginList(props) {
     const origins = props.origins;
 
     const listItems = origins.map((origin) =>
-        <DatasetSingle origin={origin}/>
+        <DatasetSingle origin={origin} key={origin.id}/>
     );
     return (
         <div className="">

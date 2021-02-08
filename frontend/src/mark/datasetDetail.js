@@ -1,41 +1,6 @@
 import React from 'react'
 import {useLocation, useParams} from "react-router-dom";
 
-const datasetExample = [
-    {
-        "id": 1,
-        "name": "spam message",
-        "description": "this is spam message,this is spam message,this is spam message.",
-        "create_at": "2021-01-19",
-        "owner": "shiniao",
-        "opened": "Open",
-        "count": 122121,
-        "percentage": "33.33%",
-    },
-    {
-        "id": 2,
-        "name": "house rental",
-        "description": "this is house rental,this is house rental,this is house rental,this is house rental.",
-        "create_at": "2021-01-19",
-        "owner": "chaojie",
-        "opened": "Close",
-        "count": 46532,
-        "percentage": "90.03%",
-
-    },
-    {
-        "id": 3,
-        "name": "digital con",
-        "description": "this is house rental,this is house rental,this is house rental,this is house rental.",
-        "create_at": "2021-01-19",
-        "owner": "chaojie",
-        "opened": "Open",
-        "count": 46532,
-        "percentage": "47.66%",
-
-    }
-]
-
 const datasetTableExample = [
     {
         "id": 1,
@@ -60,11 +25,12 @@ const datasetTableExample = [
 ]
 
 function DatasetDetail() {
-    let {id} = useParams();
-    let {dataset} = useLocation();
+    let {id} = useParams()
+    let location = useLocation()
+    const dataset = location.state.dataset
     return (
         <div className="max-w-screen-md md:max-w-screen-lg mx-auto pt-6">
-            <DatasetFields dataset={datasetExample[0]}/>
+            <DatasetFields dataset={dataset}/>
             <DatasetOrigin/>
         </div>
     );
@@ -72,18 +38,19 @@ function DatasetDetail() {
 
 
 function DatasetFields(props) {
+    const dataset = props.dataset
     return (
         <div>
-            <Title dataset={datasetExample[0]}/>
+            <Title dataset={dataset}/>
             <hr className="mb-6"/>
             <div className="bg-white sm:rounded-lg">
                 <dl>
-                    <DatasetField bgGray fieldKey="创建时间" fieldValue={props.dataset.create_at}/>
-                    <DatasetField fieldKey="拥有者" fieldValue={props.dataset.owner}/>
-                    <DatasetField bgGray fieldKey="公开状态" fieldValue={props.dataset.opened}/>
-                    <DatasetField fieldKey="数据量" fieldValue={props.dataset.count}/>
-                    <DatasetField bgGray fieldKey="标注度" fieldValue={props.dataset.percentage}/>
-                    <DatasetField bgGray fieldKey="描述" fieldValue={props.dataset.description}/>
+                    <DatasetField bgGray fieldKey="创建时间" fieldValue={dataset.create_at}/>
+                    <DatasetField fieldKey="拥有者" fieldValue={dataset.owner}/>
+                    <DatasetField bgGray fieldKey="公开状态" fieldValue={dataset.opened}/>
+                    <DatasetField fieldKey="数据量" fieldValue={dataset.count}/>
+                    <DatasetField bgGray fieldKey="标注度" fieldValue={dataset.percentage}/>
+                    <DatasetField bgGray fieldKey="描述" fieldValue={dataset.description}/>
 
                 </dl>
             </div>
@@ -150,7 +117,7 @@ function DatasetOrigin() {
 function DatasetTable(props) {
     const tables = props.tables
     const TablesList = tables.map((table) =>
-        <div className="table-row">
+        <div className="table-row" key={table.id}>
             <div className="table-cell py-2 px-12 border-r border-dashed">
                 {table.id}
             </div>
