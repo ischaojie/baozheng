@@ -36,11 +36,12 @@ const datasetExample = [
     }
 ]
 
-function SourceList() {
+function DatasetList() {
     return (
         <div className="container mx-auto px-4 pt-12">
+            <Hero/>
             <div className="flex flex-row justify-between">
-                <div className="text-lg tracking-widest flex flex-wrap content-center">数据集</div>
+                <div className="text-lg tracking-widest flex flex-wrap content-center">流行数据集</div>
                 <div>
                     <form className="relative">
                         <input type="text" name="search" id="search" placeholder="search dataset"
@@ -74,4 +75,26 @@ function OriginList(props) {
     );
 }
 
-export default SourceList
+function Hero() {
+    return (
+        <div className="mb-12 py-6 px-12 bg-indigo-100 flex flex-row content-center">
+            <div className="space-y-4 flex flex-col">
+                <div>
+                    baozheng：一个比较好用的数据收集和标注系统
+                </div>
+                <div>
+                    baozheng 收集了种类繁多的机器学习数据集，同时提供对原始数据的标注服务。
+                </div>
+                <div>
+                    <button className="rounded-md bg-indigo-600 text-white p-1 text-sm" type=" submit">导入数据集</button>
+                </div>
+            </div>
+
+            <div className="">
+                {/*<Banner/>*/}
+            </div>
+        </div>
+    );
+}
+
+export default DatasetList

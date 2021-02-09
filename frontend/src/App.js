@@ -14,9 +14,9 @@ function App({location}) {
         '/signin',
         '/mark',
     ]
-
     return (
         <div>
+            {/*exclude login and mark page with header and footer*/}
             {exclusionArray.indexOf(location.pathname) < 0 && <Header/>}
             <Switch>
                 <Route path="/signin" component={Login}/>

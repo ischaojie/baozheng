@@ -8,7 +8,7 @@ function Footer() {
                     <div className="text-xl text-gray-400 font-bold">
                         BAOZHENG
                         <div className="text-sm text-gray-300 font-medium tracking-wide">
-                            一个比较好用的数据标注系统
+                            一个比较好用的数据收集和标注系统
                   </div>
                     </div>
 
